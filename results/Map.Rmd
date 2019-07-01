@@ -1,0 +1,42 @@
+---
+title: "Mapa de Arcilla, CO y CIC del norte de la provincia de Buenos Aires"
+author: "Marcos E Angelini"
+date: "29 June 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Este es el resultado de una de las publicaciones de mi doctorado. Consiste, entre otras cosas, de los mapas de Arcilla (%), Carbono Orgánico (%) y Capacidad de Intercambio Catiónico (cmolc/kg) en los horizontes A, B y C.
+
+El resultado se publicó en el siguiente paper: [Multivariate mapping of soil with structural equation modelling](https://onlinelibrary.wiley.com/doi/full/10.1111/ejss.12446)
+
+A continuacón los mapas: 
+
+```{r echo=FALSE, cache=FALSE, results=TRUE, warning=FALSE, comment=FALSE, warning=FALSE}
+library(raster)
+library(mapview)
+library(leafem)
+
+files <- list.files(path = "/home/marcos/git/rasters/", pattern = "paper2")
+r <- stack(paste0("/home/marcos/git/rasters/", files))
+names(r) <- c("CIC_hor_A", "CIC_hor_B", "CIC_hor_C",
+              "Arcilla_hor_A", "Arcilla_hor_B", "Arcilla_hor_C",
+              "COrg_hor_A", "COrg_hor_B", "COrg_hor_C")
+mapviewOptions(basemaps = c("Esri.WorldImagery", "OpenStreetMap"))
+
+map <- mapview(x = r,
+               na.color = "transparent",
+               col.regions = mapviewPalette("mapviewTopoColors"),
+               query.type = "mousemove",
+               query.digits = 1)
+
+inta <- "https://inta.gob.ar/sites/all/themes/adaptivetheme/agil/logo.png"
+addLogo(map, img = inta, alpha = 1, src = c("remote", "local"),
+        position = c("topleft", "topright", "bottomleft", "bottomright"),
+        offset.x = 50, offset.y = 13, width = 60, height = 60)
+```
