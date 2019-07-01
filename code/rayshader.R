@@ -16,19 +16,16 @@ names(r) <- c("CIC_hor_A", "CIC_hor_B", "CIC_hor_C",
               "COrg_hor_A", "COrg_hor_B", "COrg_hor_C")
 mapviewOptions(basemaps = c("Esri.WorldImagery", "OpenStreetMap"))
 
-inta <- "https://inta.gob.ar/sites/all/themes/adaptivetheme/agil/logo.png"
-addLogo(map, img = inta, alpha = 1, src = c("remote", "local"),
-                position = c("topleft", "topright", "bottomleft", "bottomright"),
-                offset.x = 50, offset.y = 13, width = 60, height = 60)
-
-
-
 map <- mapview(x = r,
                na.color = "transparent",
                col.regions = mapviewPalette("mapviewTopoColors"),
                query.type = "mousemove",
                query.digits = 1)
 
+inta <- "https://inta.gob.ar/sites/all/themes/adaptivetheme/agil/logo.png"
+addLogo(map, img = inta, alpha = 1, src = c("remote", "local"),
+        position = c("topleft", "topright", "bottomleft", "bottomright"),
+        offset.x = 50, offset.y = 13, width = 60, height = 60)
 
 
 
